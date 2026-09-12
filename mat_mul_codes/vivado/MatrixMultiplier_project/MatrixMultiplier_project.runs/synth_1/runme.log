@@ -1,0 +1,262 @@
+
+*** Running vivado
+    with args -log MatrixMultiplier_Wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source MatrixMultiplier_Wrapper.tcl
+
+
+
+****** Vivado v2021.2 (64-bit)
+  **** SW Build 3367213 on Tue Oct 19 02:48:09 MDT 2021
+  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source MatrixMultiplier_Wrapper.tcl -notrace
+create_project: Time (s): cpu = 00:00:03 ; elapsed = 00:00:06 . Memory (MB): peak = 1251.512 ; gain = 0.000
+Command: read_checkpoint -auto_incremental -incremental C:/Users/KIIT/Desktop/mat_mul/vivado/MatrixMultiplier_project/MatrixMultiplier_project.srcs/utils_1/imports/synth_1/MatrixMultiplier_Wrapper.dcp
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/KIIT/Desktop/mat_mul/vivado/MatrixMultiplier_project/MatrixMultiplier_project.srcs/utils_1/imports/synth_1/MatrixMultiplier_Wrapper.dcp for incremental synthesis
+INFO: [Vivado 12-7989] Please ensure there are no constraint changes
+Command: synth_design -top MatrixMultiplier_Wrapper -part xc7z010clg400-1 -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
+INFO: [Device 21-403] Loading part xc7z010clg400-1
+WARNING: [Designutils 20-4072] Reference run did not run incremental synthesis because the design is too small; reverting to default synthesis
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 5924
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:09 . Memory (MB): peak = 1251.512 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'MatrixMultiplier_Wrapper' [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier_wrapper.vhdl:31]
+	Parameter MAX_SIZE bound to: 3 - type: integer 
+	Parameter WORD_LENGTH bound to: 3 - type: integer 
+INFO: [Synth 8-3491] module 'MatrixMultiplier' declared at 'C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:10' bound to instance 'Multiplier_logic' of component 'MatrixMultiplier' [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier_wrapper.vhdl:85]
+INFO: [Synth 8-638] synthesizing module 'MatrixMultiplier' [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:30]
+	Parameter MAX_SIZE bound to: 3 - type: integer 
+	Parameter WORD_LENGTH bound to: 3 - type: integer 
+	Parameter MAX_SIZE bound to: 3 - type: integer 
+INFO: [Synth 8-3491] module 'MatrixLUT_A' declared at 'C:/Users/KIIT/Desktop/mat_mul/src/MatrixLUT_A.vhdl:10' bound to instance 'LUT_A' of component 'MatrixLUT_A' [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:153]
+INFO: [Synth 8-638] synthesizing module 'MatrixLUT_A' [C:/Users/KIIT/Desktop/mat_mul/src/MatrixLUT_A.vhdl:25]
+	Parameter MAX_SIZE bound to: 3 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'MatrixLUT_A' (1#1) [C:/Users/KIIT/Desktop/mat_mul/src/MatrixLUT_A.vhdl:25]
+	Parameter MAX_SIZE bound to: 3 - type: integer 
+INFO: [Synth 8-3491] module 'MatrixLUT_B' declared at 'C:/Users/KIIT/Desktop/mat_mul/src/MatrixLUT_B.vhdl:9' bound to instance 'LUT_B' of component 'MatrixLUT_B' [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:167]
+INFO: [Synth 8-638] synthesizing module 'MatrixLUT_B' [C:/Users/KIIT/Desktop/mat_mul/src/MatrixLUT_B.vhdl:24]
+	Parameter MAX_SIZE bound to: 3 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'MatrixLUT_B' (2#1) [C:/Users/KIIT/Desktop/mat_mul/src/MatrixLUT_B.vhdl:24]
+	Parameter MAX_SIZE bound to: 3 - type: integer 
+INFO: [Synth 8-3491] module 'MatrixLUT_C' declared at 'C:/Users/KIIT/Desktop/mat_mul/src/MatrixLUT_C.vhdl:10' bound to instance 'LUT_C' of component 'MatrixLUT_C' [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:181]
+INFO: [Synth 8-638] synthesizing module 'MatrixLUT_C' [C:/Users/KIIT/Desktop/mat_mul/src/MatrixLUT_C.vhdl:25]
+	Parameter MAX_SIZE bound to: 3 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'MatrixLUT_C' (3#1) [C:/Users/KIIT/Desktop/mat_mul/src/MatrixLUT_C.vhdl:25]
+WARNING: [Synth 8-614] signal 'M_size' is read in the process but is not in the sensitivity list [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:319]
+WARNING: [Synth 8-614] signal 'N_size' is read in the process but is not in the sensitivity list [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:319]
+WARNING: [Synth 8-614] signal 'K_size' is read in the process but is not in the sensitivity list [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:319]
+WARNING: [Synth 8-6014] Unused sequential element mul_result_reg was removed.  [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:421]
+INFO: [Synth 8-256] done synthesizing module 'MatrixMultiplier' (4#1) [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier.vhdl:30]
+INFO: [Synth 8-256] done synthesizing module 'MatrixMultiplier_Wrapper' (5#1) [C:/Users/KIIT/Desktop/mat_mul/src/MatrixMultiplier_wrapper.vhdl:31]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:12 . Memory (MB): peak = 1251.512 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:13 . Memory (MB): peak = 1251.512 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:13 . Memory (MB): peak = 1251.512 ; gain = 0.000
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 1251.512 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [C:/Users/KIIT/Desktop/mat_mul/vivado/MatrixMultiplier_project/MatrixMultiplier_project.srcs/constrs_1/new/MatrixMultiplier_constraint.xdc]
+Finished Parsing XDC File [C:/Users/KIIT/Desktop/mat_mul/vivado/MatrixMultiplier_project/MatrixMultiplier_project.srcs/constrs_1/new/MatrixMultiplier_constraint.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1267.266 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.102 . Memory (MB): peak = 1270.238 ; gain = 2.973
+WARNING: [Designutils 20-4072] Reference run did not run incremental synthesis because the design is too small; reverting to default synthesis
+INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:23 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z010clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:23 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:23 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:24 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input    4 Bit       Adders := 4     
+	   2 Input    2 Bit       Adders := 6     
++---Registers : 
+	                9 Bit    Registers := 16    
+	                4 Bit    Registers := 4     
+	                3 Bit    Registers := 25    
+	                2 Bit    Registers := 4     
+	                1 Bit    Registers := 9     
++---Muxes : 
+	   2 Input    9 Bit        Muxes := 4     
+	   4 Input    9 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 11    
+	   3 Input    4 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 6     
+	   3 Input    3 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 6     
+	   2 Input    1 Bit        Muxes := 48    
+	   4 Input    1 Bit        Muxes := 3     
+	   8 Input    1 Bit        Muxes := 5     
+	   5 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 80 (col length:40)
+BRAMs: 120 (col length: RAMB18 40 RAMB36 20)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:28 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:24 ; elapsed = 00:00:35 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:37 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:25 ; elapsed = 00:00:37 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:31 ; elapsed = 00:00:44 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:31 ; elapsed = 00:00:44 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:31 ; elapsed = 00:00:44 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:31 ; elapsed = 00:00:44 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:31 ; elapsed = 00:00:44 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:31 ; elapsed = 00:00:44 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |CARRY4 |     3|
+|2     |LUT1   |     1|
+|3     |LUT2   |    51|
+|4     |LUT3   |    19|
+|5     |LUT4   |    35|
+|6     |LUT5   |    37|
+|7     |LUT6   |   148|
+|8     |FDCE   |   210|
+|9     |FDRE   |    39|
++------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:31 ; elapsed = 00:00:44 . Memory (MB): peak = 1270.238 ; gain = 18.727
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:22 ; elapsed = 00:00:41 . Memory (MB): peak = 1270.238 ; gain = 0.000
+Synthesis Optimization Complete : Time (s): cpu = 00:00:31 ; elapsed = 00:00:44 . Memory (MB): peak = 1270.238 ; gain = 18.727
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.009 . Memory (MB): peak = 1270.238 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 3 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1270.238 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete, checksum: c6b68db1
+INFO: [Common 17-83] Releasing license: Synthesis
+32 Infos, 7 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:35 ; elapsed = 00:00:56 . Memory (MB): peak = 1270.238 ; gain = 18.727
+INFO: [Common 17-1381] The checkpoint 'C:/Users/KIIT/Desktop/mat_mul/vivado/MatrixMultiplier_project/MatrixMultiplier_project.runs/synth_1/MatrixMultiplier_Wrapper.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file MatrixMultiplier_Wrapper_utilization_synth.rpt -pb MatrixMultiplier_Wrapper_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Apr 15 10:33:34 2025...

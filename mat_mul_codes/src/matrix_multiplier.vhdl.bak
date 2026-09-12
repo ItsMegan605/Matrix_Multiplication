@@ -1,0 +1,418 @@
+library IEEE;
+library work;
+ 
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+use work.signals.all;
+ 
+entity MatrixMultiplier is
+    generic (
+       MAX_SIZE : positive := 3;
+       WORD_LENGTH : positive := 3
+    );
+    port(
+        clk     : in std_logic; -- clock signal
+        rst     : in std_logic;  --reset active high
+        N_size  : in  integer range 1 to MAX_SIZE;  -- Number of rows of A and C
+        M_size  : in  integer range 1 to MAX_SIZE;  -- Number of columns for A and rows for B
+        K_size  : in  integer range 1 to MAX_SIZE;  -- Number of columns fo B and C
+        A_row   : in input; -- defined in the package signals as input
+        B_column: in input; -- defined in the package signals as input
+        A_valid : in std_logic; -- valid signal for A input (rows)
+        B_valid : in std_logic; -- valid signal for B input (columns)
+        C_row   : out output_c; --defined in the package signals as output_c
+        C_valid : out std_logic -- output valid for C_row output
+    );
+end entity;
+ 
+architecture boh of MatrixMultiplier is
+-------------------------------------------------------------------------------------------------------------------------------
+-- states definition
+-------------------------------------------------------------------------------------------------------------------------------
+type state_t is (IDLE, FIRST_LOAD, SECOND_LOAD, THIRD_LOAD, LOAD_MAT, CHECK,  MULTIPLY, MAT_C);
+signal curr_state : state_t;
+signal next_state : state_t;
+
+signal rows_ok : std_logic;
+signal cols_ok : std_logic;
+ 
+-------------------------------------------------------------------------------------------------------------------------------
+--internal signals declaration
+-------------------------------------------------------------------------------------------------------------------------------
+--FF signals
+ 
+-- Internal signals for ff outputs
+signal doa_signal: word_bit;
+signal dob_signal: word_bit;
+signal doc_signal: std_logic_vector(2*WORD_LENGTH + MAX_SIZE - 1 downto 0); --product output
+ 
+-- FF enable signals to memorize data
+signal en_A_FF : std_logic;
+signal en_B_FF : std_logic;
+ 
+--LUT signals
+signal A_lut_out: word_bit;
+signal B_lut_out: word_bit;
+ 
+-- signals to check loading of the LUT A and B
+signal lut_ready_A      : std_logic;
+signal lut_ready_B      : std_logic;
+ 
+---- Signals to track when the LUTs are fully loaded
+signal matrix_A_en  : std_logic;
+signal load_complete_A : std_logic;
+signal matrix_B_en  : std_logic;
+signal load_complete_B : std_logic;
+ 
+--Mul start signal
+signal start_multiplication : std_logic;
+ 
+-- Accumulator for dot product
+signal dot_product  : unsigned(2*WORD_LENGTH + MAX_SIZE - 1 downto 0);
+ 
+-- Control counters
+signal row_counter  : integer range 0 to MAX_SIZE-1;
+signal col_counter  : integer range 0 to MAX_SIZE-1;
+signal sum_counter  : integer range 0 to MAX_SIZE-1;  
+ 
+-- Use temporary signals to avoid indexed names in the DFF component instantiations
+signal A_row_signal : word_bit;
+signal B_column_signal : word_bit;
+ 
+--signal first: std_logic; -- flag
+ 
+-- Valid signal
+signal C_valid_signal : std_logic;  
+ 
+ 
+-----------------------------------------------------------------------------------------------------------------------------
+--components declaration
+-------------------------------------------------------------------------------------------------------------------------------
+component A_DFF is
+    generic (
+        Nbit: positive
+    );
+    port (
+        clk       :      in std_logic;
+        rst       :      in std_logic;
+        en        :      in std_logic;
+        dia       :      in std_logic_vector(Nbit-1 downto 0);
+        doa       :      out std_logic_vector(Nbit-1 downto 0)
+    );
+end component;
+ 
+component B_DFF is
+    generic (
+        Nbit: positive
+    );
+    port (
+        clk     : in std_logic;
+        rst     : in std_logic;
+        en      : in std_logic;
+        dib     : in std_logic_vector(Nbit - 1 downto 0);
+        dob     : out std_logic_vector(Nbit - 1 downto 0)
+    );
+end component;
+ 
+component C_DFF is
+    generic (
+        Nbit: positive
+    );
+    port (
+        clk     : in std_logic;
+        rst     : in std_logic;
+        en      : in std_logic;
+        dic     : in std_logic_vector(Nbit - 1 downto 0);
+        doc     : out std_logic_vector(Nbit - 1 downto 0)
+    );
+end component;
+ 
+component MatrixLUT_A is
+    generic (
+       MAX_SIZE : positive
+       );
+       
+     port (  
+        clk        : in std_logic;                       -- Clock signal
+        rst        : in std_logic;                       -- Reset signal
+        en_A       : in std_logic;                       -- Write enable signal
+        row_index  : in integer range 0 to MAX_SIZE - 1; -- Row index of the LUT
+        data_in_A  : in word_bit;                        -- Input data
+        data_out_A : out word_bit;                 -- output data  (to read from the LUT)
+        lut_ready  : out std_logic                       -- Signals if LUT is fully loaded
+ 
+        );
+end component;
+ 
+component MatrixLUT_B is
+    generic (
+       MAX_SIZE : positive
+       );
+       
+    port (  
+        clk        : in std_logic;                       -- Clock signal
+        rst        : in std_logic;                       -- Reset signal
+        en_B       : in std_logic;                       -- Write enable signal
+        col_index  : in integer range 0 to MAX_SIZE - 1; -- Column index of the LUT
+        data_in_B  : in word_bit;                        -- Input data
+        data_out_B : out word_bit;                  -- output data  (to read from the LUT)
+        lut_ready  : out std_logic                       -- Signals if LUT is fully loaded
+ 
+        );
+end component;
+ 
+-------------------------------------------------------------------------------------------------------------------------------
+-- Matrix Multiplier Logic
+-------------------------------------------------------------------------------------------------------------------------------
+begin
+-- Inside the process or wherever needed, assign the indexed array elements to temp signals
+A_row_signal <= A_row(row_counter);
+B_column_signal <= B_column(col_counter);
+ 
+A_DFF_MAP : A_DFF
+    generic map (
+        Nbit => WORD_LENGTH
+         )
+    port map (
+        clk     => clk,
+        rst     => rst,
+        en      => en_A_FF,  
+        dia     => A_row_signal,  -- Sincronizzo UNA riga alla volta
+        doa     => doa_signal
+    );
+ 
+B_DFF_MAP : B_DFF
+    generic map (
+         Nbit => WORD_LENGTH
+          )
+    port map (
+        clk     => clk,
+        rst     => rst,
+        en      => en_B_FF,
+        dib     => B_column_signal,  -- Sincronizzo UNA colonna alla volta
+        dob     => dob_signal
+    );
+ 
+C_DFF_MAP : C_DFF
+    generic map (
+        Nbit => 2*WORD_LENGTH + MAX_SIZE
+         )
+    port map (
+        clk     => clk,
+        rst     => rst,
+        en      => C_valid_signal,
+        dic     => std_logic_vector(dot_product),
+        doc     => doc_signal
+    );
+ 
+-- LUT porta mapping
+--LUT A
+LUT_A: MatrixLUT_A
+    generic map (
+       MAX_SIZE => MAX_SIZE
+       )
+       
+     port map (  
+        clk            => clk,
+        rst            => rst,
+        en_A           => matrix_A_en, --enable LUT just when all the data is loaded      
+        row_index      => row_counter,  
+        data_in_A      => doa_signal,   -- data from the DFF
+        data_out_A     => A_lut_out,     -- Output for the multiplier
+        lut_ready      => lut_ready_A
+        );
+ 
+--LUT B
+LUT_B: MatrixLUT_B
+    generic map (
+       MAX_SIZE => MAX_SIZE
+       )
+       
+    port map (  
+        clk         => clk,
+        rst         => rst,            
+        en_B        => matrix_B_en, --enable LUT just when all the data is loaded
+        col_index   => col_counter,  
+        data_in_B   => dob_signal,  
+        data_out_B  => B_lut_out,
+        lut_ready   => lut_ready_B    
+    );
+     -------------------------------------------------------------------------------------------------------------------------------
+    -- Matrix Multiplication Process
+    -------------------------------------------------------------------------------------------------------------------------------
+     --synch
+    state_reg: process(clk, rst)
+    begin
+        if rst = '1' then
+            curr_state <= IDLE;
+           
+        elsif rising_edge(clk) then
+            curr_state <= next_state;
+        end if;
+    end process;
+ 
+--comb
+    FSM : process (curr_state, A_valid, B_valid, lut_ready_A, lut_ready_B, matrix_A_en, matrix_B_en, row_counter, col_counter, sum_counter, rows_ok, cols_ok)
+    begin
+        --default assignments
+        next_state <= curr_state;
+        en_A_FF <= '1';
+        en_B_FF <= '1';
+        matrix_A_en <= '0';
+        matrix_B_en <= '0';
+       
+        case curr_state is
+           
+            when IDLE       =>
+            row_counter <= 0;
+            col_counter <= 0;
+            sum_counter <= 0;
+            cols_ok <= '0';
+            rows_ok <= '0';
+            dot_product <= (others => '0');
+            C_valid_signal <= '0';
+            start_multiplication <= '0';
+            en_A_FF <= '1';
+            en_B_FF <= '1';
+            load_complete_A <= '0';
+            load_complete_B <= '0';
+            lut_ready_A <= '0';
+            lut_ready_B <= '0';
+            matrix_A_en <= '0';
+            matrix_B_en <= '0';
+ 
+            if A_valid = '1' and B_valid = '1' then
+                en_A_FF <= '1'; --enable the A FF
+                en_B_FF <= '1'; --enable the B FF
+                next_state <= FIRST_LOAD; -- so we can start loading the LUT A
+               
+            end if;
+
+            when FIRST_LOAD =>
+                matrix_A_en <= '1';
+                matrix_B_en <= '1';
+                row_counter <= 0;
+                col_counter <= 0;
+                next_state <= SECOND_LOAD;
+            when SECOND_LOAD =>
+                matrix_A_en <= '1';
+                matrix_B_en <= '1';
+                row_counter <= 1;
+                col_counter <= 1;
+                next_state <= THIRD_LOAD;
+            when THIRD_LOAD =>
+                matrix_A_en <= '1';
+                matrix_B_en <= '1';
+                row_counter <= 2;
+                col_counter <= 2;
+                rows_ok <= '1';
+                cols_ok <= '1';
+                next_state <= CHECK;
+            
+ 
+            -- when LOAD_MAT =>
+            --     matrix_A_en <= '1';
+            --     matrix_B_en <= '1';
+            --     if row_counter < N_size then
+            --         row_counter <= row_counter + 1;
+            --     else
+            --         rows_ok <= '1';
+            --     end if;
+
+            --     if col_counter < K_size then
+            --             col_counter <= col_counter + 1;
+            --     else 
+            --         cols_ok <= '1';
+            --     end if;
+                
+            --     if cols_ok = '1' and rows_ok = '1' then
+            --         next_state <= CHECK;
+            --     end if;
+
+
+                -- if en_A_FF = '1' and en_B_FF = '1' then
+                --     matrix_A_en <= '1';
+                --     matrix_B_en <= '1';
+                --     if row_counter < N_size then
+                --         row_counter <= row_counter + 1;
+                --     else
+                --         load_complete_A <= '1';
+                --         lut_ready_A <= '1';  -- Mark LUT A as ready
+                --         next_state <= CHECK;
+                --     end if;
+                --     if col_counter < K_size then
+                --         col_counter <= col_counter + 1;
+                --     else
+                --         load_complete_B <= '1';
+                --         lut_ready_B <= '1';  -- Mark LUT B as ready
+                --         next_state <= CHECK;
+                --     end if;
+                -- end if;
+ 
+            -- when LOAD_MAT_B =>
+            --     if en_B_FF = '1' then
+            --         matrix_B_en <= '1';
+            --         if col_counter < K_size - 1 then
+            --             col_counter <= col_counter + 1;
+            --         else
+            --             load_complete_B <= '1';
+            --             lut_ready_B <= '1';  -- Mark LUT B as ready
+            --             next_state <= CHECK;
+            --         end if;
+            --     end if;
+ 
+            when CHECK      =>
+                if lut_ready_A = '1' and lut_ready_B = '1' then
+                    next_state <= MULTIPLY;
+                end if;
+ 
+            when MULTIPLY   =>  
+                if start_multiplication = '0' then
+                    start_multiplication <= '1';
+                    dot_product <= (others => '0');  -- Clear accumulator before computing
+                end if;
+   
+                -- Multiply and accumulate
+                dot_product <= dot_product + unsigned(A_lut_out) * unsigned(B_lut_out);
+   
+                -- Check if we've completed summing the row/column
+                if sum_counter < M_size - 1 then
+                    sum_counter <= sum_counter + 1;
+                else
+                    sum_counter <= 0;
+                    next_state <= MAT_C;
+   
+                    -- Move to the next column
+                    if col_counter < K_size - 1 then
+                        col_counter <= col_counter + 1;
+                    else
+                        col_counter <= 0;
+                        -- Move to the next row
+                        if row_counter < N_size - 1 then
+                            row_counter <= row_counter + 1;
+                        else -- End multiplication
+                            row_counter <= 0;
+                            start_multiplication <= '0';
+                            next_state <= IDLE;
+                        end if;
+                    end if;
+                end if;
+   
+ 
+               
+            when MAT_C =>
+                -- Store result in output register
+                C_row(row_counter) <= std_logic_vector(dot_product);
+                C_valid_signal <= '1';  
+                -- Reset valid signal when last row is processed
+                if row_counter = N_size - 1 then
+                    C_valid_signal <= '0';
+                    next_state <= IDLE;
+                end if;
+   
+            when others =>
+                next_state <= IDLE;  
+ 
+        end case;
+    end process;
+end architecture;

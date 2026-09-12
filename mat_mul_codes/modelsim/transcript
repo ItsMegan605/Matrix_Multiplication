@@ -1,0 +1,307 @@
+# Compile of signals.vhdl was successful.
+# Compile of Matrix_Multiplier_TestBench.vhdl failed with 3 errors.
+# 2 compiles, 1 failed with 3 errors.
+# Compile of Matrix_Multiplier_TestBench.vhdl failed with 3 errors.
+# Compile of signals.vhdl was successful.
+# Compile of Matrix_Multiplier_TestBench.vhdl failed with 3 errors.
+# Compile of MatrixLUT_A.vhdl was successful.
+# Compile of MatrixLUT_B.vhdl was successful.
+# Compile of MatrixMultiplier.vhdl was successful.
+# Compile of MatrixLUT_C.vhdl was successful.
+# 6 compiles, 1 failed with 3 errors.
+# Compile of signals.vhdl was successful.
+# Compile of Matrix_Multiplier_TestBench.vhdl failed with 1 errors.
+# Compile of MatrixLUT_A.vhdl was successful.
+# Compile of MatrixLUT_B.vhdl was successful.
+# Compile of MatrixMultiplier.vhdl was successful.
+# Compile of MatrixLUT_C.vhdl was successful.
+# 6 compiles, 1 failed with 1 error.
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+restart -f
+# No Design Loaded!
+vsim -gui work.matrix_multiplier_testbench
+# vsim -gui work.matrix_multiplier_testbench 
+# Start time: 14:33:37 on Apr 12,2025
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.signals
+# Loading work.matrix_multiplier_testbench(testbench)
+# Loading work.matrixmultiplier(beh)
+# Loading work.matrixlut_a(behavioral)
+# Loading work.matrixlut_b(behavioral)
+# Loading work.matrixlut_c(behavioral)
+add wave -position insertpoint  \
+sim:/matrix_multiplier_testbench/clk_tb \
+sim:/matrix_multiplier_testbench/rst_tb \
+sim:/matrix_multiplier_testbench/N_size_tb \
+sim:/matrix_multiplier_testbench/M_size_tb \
+sim:/matrix_multiplier_testbench/K_size_tb \
+sim:/matrix_multiplier_testbench/A_row_tb \
+sim:/matrix_multiplier_testbench/B_column_tb \
+sim:/matrix_multiplier_testbench/A_valid_tb \
+sim:/matrix_multiplier_testbench/B_valid_tb \
+sim:/matrix_multiplier_testbench/C_row_tb \
+sim:/matrix_multiplier_testbench/C_valid_tb \
+sim:/matrix_multiplier_testbench/testing \
+sim:/matrix_multiplier_testbench/CLK_PERIOD \
+sim:/matrix_multiplier_testbench/MAX_SIZE_TB \
+sim:/matrix_multiplier_testbench/WORD_LENGTH_TB
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: KIIT  Hostname: ELENI-S  ProcessID: 40720
+#           Attempting to use alternate WLF file "./wlftnr9x5m".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftnr9x5m
+add wave -position insertpoint  \
+sim:/matrix_multiplier_testbench/DUT/LUT_A/row_index \
+sim:/matrix_multiplier_testbench/DUT/LUT_A/data_in_A \
+sim:/matrix_multiplier_testbench/DUT/LUT_A/data_out_A \
+sim:/matrix_multiplier_testbench/DUT/LUT_A/lut_ready \
+sim:/matrix_multiplier_testbench/DUT/LUT_A/LUT \
+sim:/matrix_multiplier_testbench/DUT/LUT_A/lut_ready_s
+add wave -position insertpoint  \
+sim:/matrix_multiplier_testbench/DUT/LUT_B/col_index \
+sim:/matrix_multiplier_testbench/DUT/LUT_B/data_in_B \
+sim:/matrix_multiplier_testbench/DUT/LUT_B/data_out_B \
+sim:/matrix_multiplier_testbench/DUT/LUT_B/lut_ready \
+sim:/matrix_multiplier_testbench/DUT/LUT_B/LUT \
+sim:/matrix_multiplier_testbench/DUT/LUT_B/lut_ready_s
+add wave -position insertpoint  \
+sim:/matrix_multiplier_testbench/DUT/curr_state \
+sim:/matrix_multiplier_testbench/DUT/next_state \
+sim:/matrix_multiplier_testbench/DUT/rows_ok \
+sim:/matrix_multiplier_testbench/DUT/cols_ok \
+sim:/matrix_multiplier_testbench/DUT/A_lut_out \
+sim:/matrix_multiplier_testbench/DUT/B_lut_out \
+sim:/matrix_multiplier_testbench/DUT/C_lut_out \
+sim:/matrix_multiplier_testbench/DUT/lut_ready_A \
+sim:/matrix_multiplier_testbench/DUT/lut_ready_B \
+sim:/matrix_multiplier_testbench/DUT/matrix_A_en \
+sim:/matrix_multiplier_testbench/DUT/matrix_B_en \
+sim:/matrix_multiplier_testbench/DUT/load_complete_A \
+sim:/matrix_multiplier_testbench/DUT/load_complete_B \
+sim:/matrix_multiplier_testbench/DUT/C_write_complete \
+sim:/matrix_multiplier_testbench/DUT/en_C \
+sim:/matrix_multiplier_testbench/DUT/start_multiplication \
+sim:/matrix_multiplier_testbench/DUT/mul_result \
+sim:/matrix_multiplier_testbench/DUT/dot_product \
+sim:/matrix_multiplier_testbench/DUT/row_counter \
+sim:/matrix_multiplier_testbench/DUT/col_counter \
+sim:/matrix_multiplier_testbench/DUT/sum_counter \
+sim:/matrix_multiplier_testbench/DUT/write_counter \
+sim:/matrix_multiplier_testbench/DUT/offset \
+sim:/matrix_multiplier_testbench/DUT/read_data_counter \
+sim:/matrix_multiplier_testbench/DUT/col_data_counter \
+sim:/matrix_multiplier_testbench/DUT/row_data_counter
+add wave -position insertpoint  \
+sim:/matrix_multiplier_testbench/DUT/LUT_C/row_index \
+sim:/matrix_multiplier_testbench/DUT/LUT_C/data_in_C \
+sim:/matrix_multiplier_testbench/DUT/LUT_C/data_out_C \
+sim:/matrix_multiplier_testbench/DUT/LUT_C/lut_ready \
+sim:/matrix_multiplier_testbench/DUT/LUT_C/LUT \
+sim:/matrix_multiplier_testbench/DUT/LUT_C/lut_ready_s
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 200 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 200 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+# Break key hit
+# Break in Process clk_process at C:/Users/KIIT/Desktop/mat_mul/tb/Matrix_Multiplier_TestBench.vhdl line 43
+restart -f
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+restart -f
+restart
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 200 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 200 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 610 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 630 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 700 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 700 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+# Break key hit
+# Break in Process clk_process at C:/Users/KIIT/Desktop/mat_mul/tb/Matrix_Multiplier_TestBench.vhdl line 43
+# Compile of signals.vhdl was successful.
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+# Compile of MatrixLUT_A.vhdl was successful.
+# Compile of MatrixLUT_B.vhdl was successful.
+# Compile of MatrixMultiplier.vhdl was successful.
+# Compile of MatrixLUT_C.vhdl was successful.
+# 6 compiles, 0 failed with no errors.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.signals
+# Loading work.matrix_multiplier_testbench(testbench)
+# Loading work.matrixmultiplier(beh)
+# Loading work.matrixlut_a(behavioral)
+# Loading work.matrixlut_b(behavioral)
+# Loading work.matrixlut_c(behavioral)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 650 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Break key hit
+# Break in Process clk_process at C:/Users/KIIT/Desktop/mat_mul/tb/Matrix_Multiplier_TestBench.vhdl line 43
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 700 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+# Break key hit
+# Break in Process clk_process at C:/Users/KIIT/Desktop/mat_mul/tb/Matrix_Multiplier_TestBench.vhdl line 43
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 670 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Break key hit
+# Break in Process clk_process at C:/Users/KIIT/Desktop/mat_mul/tb/Matrix_Multiplier_TestBench.vhdl line 43
+# Compile of Matrix_Multiplier_TestBench.vhdl was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.matrix_multiplier_testbench(testbench)
+run
+# ** Note: Loading first row/column pair
+#    Time: 100 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading second row/column pair
+#    Time: 130 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Loading third row/column pair
+#    Time: 160 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Waiting for multiplication to complete...
+#    Time: 190 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# ** Note: Testbench completed successfully
+#    Time: 670 ns  Iteration: 0  Instance: /matrix_multiplier_testbench
+# Break key hit
+# Break in Process clk_process at C:/Users/KIIT/Desktop/mat_mul/tb/Matrix_Multiplier_TestBench.vhdl line 43
+# End time: 23:12:32 on Apr 12,2025, Elapsed time: 8:38:55
+# Errors: 0, Warnings: 2
